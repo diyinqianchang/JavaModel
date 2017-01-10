@@ -1,0 +1,47 @@
+JAVA的核心概念：接口（interface） 
+
+接口与类属于同一层次，实际上，接口是一种特殊的抽象类。
+
+ 如:    interface IA{ }  public interface：
+
+公开接口  与类相似，一个文件只能有一个public接口，且与文件名相同。 在一个文件中不可同时定义一个public接口和一个public类。  
+
+一个接口中，所有方法为公开、抽象方法；所有的属性都是公开、静态、常量。  
+
+一个类实现一个接口的格式： class IAImple implements IA{ };   一个类实现接口，相当于它继承一个抽象类。  
+
+类必须实现接口中的方法，否则其为一抽象类。 实现中接口和类相同。  
+
+ 
+
+接口中可不写public，但在子类中实现接口的过程中public不可省。 
+
+（如果剩去public则在编译的时候提示出错：对象无法从接口中实现方法。）  
+
+注：  ① 一个类除继承另外一个类，还可以实现接口；  class IAImpl extends java.util.Arrylist implement IA{}           
+
+       继承类        实现接口 这样可以实现变相的多继承。 
+
+② 一个类只能继承另外一个类，但是它可以继承多个接口，中间用“，”隔开。
+
+ Implements IA,IB  所谓实现一个接口，就是指实现接口中的方法。 
+
+ 
+
+③ 接口和接口之间可以定义继承关系，并且接口之间允许实现多继承。
+
+ 例：interface IC extends IA,IB{}; 接口也可以用于定义对象 IA I=new IAImpl();  实现的类从父类和接口继承的都可做运行时类型。 
+
+IAImple extends A implement IA,IB IB I=new IAImple(); 
+
+ 
+
+ I instance of IAImple; I instance of A; I instance of IA; I instance of IB; 返回的结果均为true. 
+
+  接口和多态都为JAVA技术的核心。  
+
+接口往往被我们定义成一类XX的东西。 接口实际上是定义一个规范、标准。  
+
+① 通过接口可以实现不同层次、不同体系对象的共同属性； 通过接口实现write once as anywhere.  以JAVA数据库连接为例子：JDBC制定标准；数据厂商实现标准；用户使用标准。 接口通常用来屏蔽底层的差异。 
+
+②接口也因为上述原因被用来保持架构的稳定性。
