@@ -1,0 +1,116 @@
+
+
+命令模式中有三个角色
+
+Receive接收者角色
+干活的角色，命令传递到这里是应该被执行的，具体到我们上面的例子中就是Group的三个实现类
+
+Command角色
+需要执行的所有命令都在这里声明
+
+Invoker调用者角色
+接收到命令，并执行命令。
+
+public abstract class Receive{
+	
+	public abstract void doSomething();
+	
+}
+
+//具体Receive类
+public class ConcreteReceive1 extends Receiver{
+	
+	public void doSomething(){
+	
+	}
+
+}
+
+public class ConcreteReceive2 extends Receiver{
+	
+	public void doSomething(){
+	
+	}
+
+}
+
+//抽象命令类
+
+public abstract class Command{
+
+	public abstrate void execute();
+
+}
+//具体的命令类
+public class ConcreteCommandle extends Command{
+	
+	private Receiver receiver;
+	
+	public ConcreteCommandle(Receiver _receiver){
+		this.receiver = _receiver;
+	}
+	
+	public void execute(){
+		this.receiver.doSomething();
+	}
+	
+}
+
+
+public class Invoker{
+	
+	private Command command;
+	
+	//接收命令
+	public void setCommand(Command _command){
+		this.command = _command;
+	}
+	//执行命令
+	public void action(){
+		
+		this.command.execute();
+	}
+
+}
+
+
+public class Client{
+
+	public static void main(String[] args){
+		
+		Invoker invoker = new Invoker();
+		
+		Receiver receiver = new ConcreateReciverl();
+		
+		Command command = new ConcreateCommand1(receiver);
+		
+		invoker.setCommand(command);
+		
+		invoker.action();
+	
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+
+责任链模式重点是在"链"上，由一条链去处理相似的请求在链中决定谁来处理这个请求并返回响应的
+结果
+
+抽象处理者
+
+public abstract class Handler{
+
+	private Handler nextHandler;
+	
+	public final Response handleMessage(Request request){
+		//判断是否是自己的处理级别
+		Response response = null;
+		if(this.getHandleLevel().equals(request.getRequestLevel())){
+			response = this.echo(request);
+		}else{  // 不属于自己的处理级别
+			
+			if(this.nextHandle !=null){
+				response = this.nextHandler.handleMessage(request);
+			}else{
+			
+			}
+		}
+		return response;
+		
+	}
+	
+	public void setNext(Handler _handler){
+			this.nextHandler = _handler;
+	}
+	
+	//每个处理级别
+	protected abstract Level getHandlerLevel();
+	
+	protected abstract Response echo(Request request);
+
+}
+
+抽象的处理者实现三个职责：一是定义一个请求处理方法handleMessage，唯一对外开放的方法
+ 
+ 二是定义一个链的编排方法setNext,设置下一个处理者
+ 
+ 三是定义了具体的请求者必须实现的两个方法：定义自己能够处理的级别getHandlerLevel和具体处理任务echo
+ 
+ 
+ 定义三个具体的处理者
+ 
+ public class ConcreteHandler extends Handler{
+ 	
+ 	protected Response echo(Request request){
+ 		//完成处理逻辑
+ 		return null;
+ 	}
+ 	protected Level getHandlerLevel(){
+ 		return null;
+ 	}
+ 
+ }
+ 
+  public class ConcreteHandler1 extends Handler{
+ 	
+ 	protected Response echo(Request request){
+ 		//完成处理逻辑
+ 		return null;
+ 	}
+ 	protected Level getHandlerLevel(){
+ 		return null;
+ 	}
+ 
+ }
+ 
+  public class ConcreteHandler2 extends Handler{
+ 	
+ 	protected Response echo(Request request){
+ 		//完成处理逻辑
+ 		return null;
+ 	}
+ 	protected Level getHandlerLevel(){
+ 		return null;
+ 	}
+ 
+ }
+ 
+ public class Level{
+ 	//定义一个请求和处理等级
+ }
+ 
+ public class Request{
+ //请求等级
+ 	public Level getRequestLevel(){
+ 		return null;
+ 	}
+ }
+ 
+ public class Response{
+ 	//处理者返回的数据
+ }
+
+
+public class Client{
+
+	public static void main(String[] args){
+			Handler handler = new ConcreteHandle();
+			Handler handler1 = new ConcreteHandle1();
+			Handler handler2 = new ConcreteHandle2();
+			
+			handle.setNext(handle1);
+			handle.setNext(handle2);
+			
+			Response response = handle1.handlerMessage(new Request());
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
