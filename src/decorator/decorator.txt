@@ -1,0 +1,88 @@
+
+
+动态的给一个对象添加一些额外的职责，就增加功能来说，装饰模式相比生成子类更加灵活
+
+类图中有四个角色
+
+Component是一个接口或者抽象类，就是定义我们核心的对象。如上成绩单
+
+ConcreteComponent 具体构件   最原始、最基本的接口或抽象类的实现
+
+Decorator装饰角色
+ConcreteDecoratorA和ConcreteDecoratorB是两个具体的装饰类，你们要把你最核心的、最原始的、最基本的东西装饰成其他东西
+
+public abstract class Component{
+		public abstract class operate();
+}
+public class ConcreteComponent extends Component{
+		@Override
+		public void  operate(){
+				System.out.println("do Something");
+		}
+}
+
+抽象装饰类  也是继承 构件类
+public abstract class Decorator extends Component{
+
+	private Component component = null；
+	public Decorator(Component _com){
+		this.component = _com;
+	}
+	
+	@Override
+	public void operate(){
+			this.component.operate();
+	}
+}
+
+//具体装饰类
+public class ConcreteDecorator1 extends Decorator{
+	
+	public ConcreteDecorator1(Component _com){
+			super(_com);
+	}
+	
+	private void method(){
+				//修饰
+	}
+	
+	public void operate(){
+			this.method();
+			super.operate();
+	}
+
+}
+
+场景类
+
+public class Client(){
+	
+	public static void main(String[] args) {
+		
+		Component component = new ConcreteComponent();
+		//第一次修饰
+		component = new ConcreteDecorator1(component);
+		
+		component.operate();
+	
+	}
+
+}
+
+装饰类和被装饰类可以独立发展不会相互耦合 Component类无须知道Decorator类，Decorator类是从外部类扩展Component类的功能
+
+而Decorator也不用知道具体构件
+
+装饰类是继承关系的一个替代方案
+
+
+运用场景
+
+需要扩展一个类的功能，或者给一个类增加附加功能
+需要动态地给一个对象增加功能，这些功能可以动态的撤销
+需要为一批的兄弟类进行改装或假装功能，当然也是首先装饰模式
+
+
+
+
+
