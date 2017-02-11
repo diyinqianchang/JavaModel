@@ -1,0 +1,55 @@
+
+
+适配器模式叫做变压器模式
+
+适配其模式中的三个角色
+
+有Target目标角色
+该角色定义把其他转换为何种接口，也就是我们的期望接口。例子中的IUserInfo接口就是目标角色
+
+public interface Target{
+	public void request();
+}
+public class ConcreteTarget implement Target{
+	public void request(){
+		System.out.println("if you need any help, please call me");
+	}
+}
+
+Adapter源角色
+你想吧谁转换成目标角色，这个“谁”就是源角色。他是已经存在的、运行想好的类或对象，经过适配器角色的包装
+它会成为一个崭新、靓丽的角色
+
+public class Adaptee(){
+	
+	public void doSomething(){
+		System.out.println("I'm kind of busy, leave me along");
+	}
+
+}
+
+
+
+Adapter适配器角色
+适配器核心的角色，其他两个角色是已经存在的角色，而适配器角色是需要新建立的，
+把源角色转换为目标角色
+
+
+//继承源角色同时实现 目标的协议
+public class Adapter extends Adaptee implements Target{
+	
+	public void request(){
+		super.doSomething();
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
