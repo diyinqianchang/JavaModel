@@ -1,0 +1,95 @@
+
+
+Subject 被观察者  定义观察者必须实现的职责，它必须能够动态地增加、取消观察者。
+
+//被观察者
+public abstract class Subject{
+
+	private Vector<Observer> obsVector = new Vector<Observer>();
+	
+	public void addObserver(Observer o){
+		this.obsVector.add(o);
+	}
+	
+	public void delObserver(Observer o){
+		this.obsVector.remove(o);
+	}
+	
+	public void notifyObservers(){
+		for(Observer o :this.obsVector){
+			o.update();
+		}	
+	}
+}
+//具体被观察者
+public class ConcreteSubject extends Subject{
+	
+	public void doSomething(){
+		super.notifyObservers();
+	}
+}
+
+//抽象观察者
+public interface Observer{
+	public void update()
+}
+
+public class ConcreteObserver implements Observer{
+
+	public void update(){
+		/*
+		*dosong
+		*/
+	}
+
+}
+
+public class Client {
+
+	public static void main(String[] args) {
+		
+		Observer lisi = new LiSiTest();
+		
+		ConcreteSubject hanFeiZiTest  = new ConcreteSubject();
+		
+		hanFeiZiTest.addObserver(lisi);
+		hanFeiZiTest.haveBreakfast();
+		hanFeiZiTest.haveFun();
+
+	}
+
+}
+
+
+
+
+它一般是抽象类或者是实现类，仅仅完成作为被观察者必须实现的职责，管理观察者并通知观察者
+
+Observer观察者
+观察者接收到消息后，即进行update操作,对接收到的信息进行处理
+
+ConcreteSubject具体的被观察者
+定义被观察者自己的业务逻辑，同时定义对哪些事件进行通知
+
+ConcreteObserver具体的观察者
+每个观察者在接收到消息后处理反应是不同的，各个观察者有自己的处理逻辑
+
+
+
+使用场景
+
+关联行为场景。  关联行为是可拆分的
+
+事件多级触发场景
+
+跨系统的消息交换场景  如消息队列的处理机制等
+
+
+
+
+
+
+
+
+
+
