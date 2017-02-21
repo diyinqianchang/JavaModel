@@ -1,0 +1,120 @@
+
+
+享元模式是池技术的重要实现方式，细粒度的对象和共享对象。
+
+对象的内部状态
+内部对象可共享出来的信息，存储在享元对象并且不会随环境改变而改变，如我们的例子中的id、postAddress等
+它们可以作为一个对象的动态附加信息，不必直接存储在具体某个对象中，属于可以共享的部分
+
+外部状态
+外部状态是对象得意依赖的一个标记，是随环境改变而改变的，不可以共享的状态，如key
+
+Flyweight---------抽象享元角色
+一个产品的抽象类，同时定义出对象的外部状态和内部状态的接口或实现
+
+ConcreteFlyweight----具体享元角色
+具体的一个产品类，实现抽象角色定义的业务。该角色中需要注意的是内部状态处理应该与环境无关
+不应该出现一个操作改变了内部状态，同时修改了外部状态。
+
+unsharedConcreteFlyweight-----不可共享的享元角色
+不存在外部状态或者安全要求  不能够使用共享技术的对象，该对象一般不会出现在享元工厂中
+
+FlyweightFactory-----享元共厂
+
+构造一个池容器，同时提供从池中获得对象的方法。
+
+运用共享技术，使得一些细粒度的对象可以共享，我们的设计确实也应该这样，多使用细粒度的对象便于重用或重构
+
+
+
+public abstract class Flyweight{
+	
+	private String intrinsic;
+	
+	protected final String Extrinsic;
+	
+	public Flyweight(String _Extrinsic){
+		this.Extrinsic = _Extrinsic;
+	}
+	
+	public abstract void operate();
+	
+	public String getIntrinsic(){
+		return intrinsic;
+	}
+	
+	public void setIntrinsic(String intrinsic){
+		this.intrinsic = intrinsic；
+	}
+
+}
+
+//具体享元角色
+
+public class ConcreteFlyweight1 extends Flyweight{
+
+	public ConcreteFlyweight1(String _Extrinsic){
+		super(_Extrinsic);
+	}
+	
+	public void operate(){
+		//业务逻辑
+	}
+}
+
+public class ConcreteFlyweight2 extends Flyweight{
+
+	public ConcreteFlyweight2(String _Extrinsic){
+		super(_Extrinsic);
+	}
+	
+	public void operate(){
+		//业务逻辑
+	}
+}
+
+
+
+//享元工厂
+
+public class FlyweightFactory{
+
+	private static HashMap<String,Flyweight> pool = new HashMap<>();
+	
+	public static Flyweight getFlyweight(String Extrinsic) {
+		SignInfo result = null;
+		if (!pool.containsKey(Extrinsic)) {
+			System.out.println(key+"-----建立对象，并放置到池中");
+			result = new ConcreteFlyweight1(Extrinsic);
+			pool.put(Extrinsic,flyweight);
+		}else{
+			result = pool.get(Extrinsic);
+			System.out.println("直接从池中取得");
+		}
+		return result;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
